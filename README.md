@@ -12,8 +12,6 @@ Cada carpeta conserva el contenido original de su etapa, sin `.git`, dependencia
 instaladas ni binarios pesados. La documentación de operación y de código está en
 [`docs/`](docs/), y el sitio del proyecto en [`docs/index.html`](docs/index.html).
 
-> **Nota de preservación:** se removieron credenciales, claves o tokens detectados en 11 archivo(s) de esta familia. Los ejemplos y plantillas seguras se conservan.
-
 ## Índice de versiones
 
 | Versión | Qué aporta | Archivos |
@@ -36,6 +34,64 @@ pip install -r requirements.txt && uvicorn main:app --reload
 
 La clave real de OpenRouter fue removida. Sin clave no hay modelos; los límites gratuitos cambian y el gateway no los inventa.
 
+<!-- ficha -->
+## Ficha de evaluación
+
+**Madurez global: 4.0/5**
+
+| Criterio | Nota | Evidencia |
+|---|---:|---|
+| Madurez | 3/5 | Endpoints verificados manualmente con curl; failover incompleto y sin pruebas automatizadas ni CI. |
+| Reproducibilidad | 3/5 | requirements.txt sin versiones fijas, .env.example y run.sh; el resultado depende del catálogo vigente. |
+| Documentación | 5/5 | README de 40 KB, bitácora con estado de verificación y doce limitaciones enumeradas. |
+| Honestidad de límites | 5/5 | Separa lo verificado de lo supuesto y admite que el failover no se ejercitó con un 429 real. |
+| Valor demostrativo | 4/5 | Muestra descubrimiento dinámico, prioridad configurable y streaming SSE con un frontend sin dependencias. |
+| Facilidad de despliegue | 4/5 | Entorno virtual, una clave en .env y run.sh en primer plano; sin Docker ni base de datos. |
+
+Gateway honesto sobre una promoción temporal: descubre, prioriza y transmite, y avisa cuando no hay cupo. Su deuda es el failover y la ausencia de pruebas.
+
+## Lo que no funcionó
+
+### mega-free-chat — Failover que no atrapa el primer error
+
+chat_stream es un generador: llamarlo no ejecuta la petición, así que el try/except del router envolvía la creación y no la iteración. Un 429 al abrir el stream se devolvía como error interno, sin cambiar de modelo. Se documentó como deuda y el arreglo consiste en primar el generador.
+
+### mega-free-chat — Configuración ignorada según el arranque
+
+Los módulos leían os.getenv al importarse y load_dotenv() corría después, por lo que BACKOFF_SECONDS, POOL_REFRESH_SECONDS y OR_BASE_URL del .env se ignoraban con uvicorn server:app. run.sh exportaba las variables y ocultaba el problema. Quedó pendiente leer la configuración en runtime, porque el modo de arranque también define el comportamiento.
+
+### mega-free-chat — Lanzador en segundo plano revertido
+
+Se agregó un lanzador de escritorio tipo interruptor para arrancar el servidor sin terminal. Dejaba procesos huérfanos, dos instancias peleando por el puerto 8000 y ninguna forma clara de saber cuál respondía. Se revirtió a run.sh en primer plano con exec y Ctrl+C.
+
+### mega-free-chat — Clasificación china por subcadena
+
+La keyword ling, incluida por Ling/InclusionAI, matcheaba dentro de inkling y el panel mostraba modelos occidentales en el grupo chino. La lista pasó a expresiones regulares con límite de palabra. El cambio quedó documentado como lección sobre clasificar textos cortos.
+
+## Preguntas típicas
+
+**¿Es realmente gratis?**
+
+Usa modelos con costo cero de OpenRouter. Eso no garantiza disponibilidad ni cupo.
+
+**¿Dónde está la API key?**
+
+No se publica. Usá .env.example y tu propia clave.
+
+**¿Qué es el failover?**
+
+Si un modelo falla o no está disponible, se intenta el siguiente según la prioridad.
+
+**¿Por qué prioriza proveedores chinos?**
+
+Es una decisión del autor por latencia/disponibilidad; el orden es configurable.
+
+**¿Guarda conversaciones?**
+
+No hay base de datos en el gateway.
+
+<!-- /ficha -->
+
 ## Documentación
 
 - [`docs/datasheet.md`](docs/datasheet.md) — instalación, operación y límites.
@@ -43,9 +99,9 @@ La clave real de OpenRouter fue removida. Sin clave no hay modelos; los límites
 - [`docs/REFERENCES.md`](docs/REFERENCES.md) — estándares, librerías y fuentes.
 - [`docs/index.html`](docs/index.html) — página del proyecto (GitHub Pages).
 
-## Alcance y honestidad
+## El proyecto en detalle
 
-## Mega Free Chat
+### Mega Free Chat
 
 **Pasarela web que enruta cada pregunta a un modelo con precio `$0` del catálogo de OpenRouter, con failover, prioridad a modelos chinos y streaming (SSE).**
 

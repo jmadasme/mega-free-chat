@@ -156,6 +156,39 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.04em;margin:
 .rich .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
 .rich .card-grid .card{margin:0}
 
+
+.rich h3{margin:26px 0 8px}
+.rich p{margin:0 0 14px;color:var(--muted);line-height:1.7}
+.fail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:6px}
+.fail{background:rgba(11,34,43,.55);border:1px solid var(--line);border-radius:14px;padding:18px}
+.fail .v{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--warm,#D6A86A)}
+.fail h3{font-size:16px;margin:8px 0 6px}
+.fail p{font-size:14px;margin:0;color:var(--muted)}
+.rating-head{display:flex;align-items:center;gap:20px;margin:6px 0 18px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:rgba(11,34,43,.55)}
+.rating-avg{font-family:var(--mono);font-size:40px;line-height:1;color:var(--accent)}
+.rating-avg small{font-size:14px;color:var(--muted)}
+.rating-head p{margin:4px 0 0;font-size:14px;color:var(--muted);max-width:70ch}
+.rating{display:grid;gap:2px}
+.rating-row{display:grid;grid-template-columns:165px minmax(90px,1fr) 48px;gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.rating-row:last-child{border-bottom:0}
+.rating-name{font-size:13.5px;font-weight:600}
+.rating-bar{height:6px;border-radius:99px;background:rgba(148,190,200,.14);overflow:hidden}
+.rating-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.rating-score{font-family:var(--mono);font-size:12.5px;color:var(--accent);text-align:right}
+.rating-note{grid-column:2/-1;font-size:12.5px;color:var(--muted);margin-top:-4px}
+.faq{display:grid;gap:0;margin-top:4px}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";display:inline-block;width:18px;color:var(--accent);font-family:var(--mono)}
+.faq details[open] summary::before{content:"–"}
+.faq p{margin:10px 0 0 18px;font-size:14px;color:var(--muted)}
+@media(max-width:720px){
+  .fail-grid{grid-template-columns:1fr}
+  .rating-head{flex-direction:column;align-items:flex-start}
+  .rating-row{grid-template-columns:120px 1fr 44px}
+}
+
 </style>
 <link rel="stylesheet" href="assets/community.css?v=1">
 </head>
@@ -188,15 +221,7 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.04em;margin:
 
 <section class="stats"><div class="wrap stats-grid"><div class="stat"><div class="stat-num">1</div><div class="stat-label">versión</div></div><div class="stat"><div class="stat-num">$0</div><div class="stat-label">costo</div></div><div class="stat"><div class="stat-num">SSE</div><div class="stat-label">streaming</div></div><div class="stat"><div class="stat-num">1</div><div class="stat-label">gateway</div></div></div></section>
 
-<section class="section" id="proyecto"><div class="wrap">
-  <div class="section-head reveal"><div class="kicker">01 — El proyecto</div><h2>Qué resuelve</h2><p class="section-sub">Puerta de enlace local para chatear con modelos gratuitos de OpenRouter. Maneja failover entre modelos, prioriza proveedores chinos, transmite por SSE y muestra un aviso honesto cuando el cupo gratuito se agota.</p></div>
-  <div class="two">
-    <div class="card reveal"><span class="tag">Problema</span><h3>El punto de partida</h3><p>Los modelos gratuitos cambian de disponibilidad y límite; una app que depende de uno solo falla sin explicación.</p></div>
-    <div class="card reveal"><span class="tag">Solución</span><h3>La propuesta</h3><p>Descubrir modelos disponibles, ordenarlos por prioridad y hacer failover, mostrando al usuario qué pasó cuando no hay cupo.</p></div>
-  </div>
-</div></section>
-
-<section class="section" id="versiones"><div class="wrap">
+<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">El concepto</div><h2>Qué es y por qué existe</h2></div><div class="rich reveal"><p>Mega Free Chat es una puerta de enlace local para conversar con modelos de costo cero de OpenRouter. Un servidor FastAPI descubre el catálogo, filtra los modelos con precio cero, los ordena con prioridad a proveedores chinos y transmite la respuesta por Server-Sent Events. La interfaz es un HTML con JavaScript embebido, sin frameworks ni compilación.</p><p>Apunta a quien quiere probar modelos gratuitos sin repartir cinco claves ni mantener una lista fija que caduca en días. El aporte es el criterio: el pool se reconstruye solo, el failover intenta el siguiente candidato y, cuando no hay cupo, la aplicación lo dice en lugar de fingir. Su límite es igual de claro: el failover no cubre errores del primer intento y el servicio no tiene autenticación.</p></div></div></section><section class="section" id="versiones"><div class="wrap">
   <div class="section-head reveal"><div class="kicker">02 — Versiones</div><h2>La historia, completa.</h2><p class="section-sub">Cada carpeta conserva una etapa del proyecto. No se borraron las anteriores: se pusieron en contexto.</p></div>
   <div class="versions"><article class="version reveal">
   <div class="version-top"><h3>mega-free-chat</h3><span class="count">26 archivos</span></div>
@@ -204,23 +229,23 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.04em;margin:
   <a href="https://github.com/jmadasme/mega-free-chat/tree/main/versions/mega-free-chat" target="_blank" rel="noopener">Ver carpeta <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 </article></div>
 </div></section>
-<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">01 — La idea</div><h2>Un chat que no se cae cuando un modelo se cae</h2><p class="section-sub">La gracia no es el chat: es la capa que elige, rota y mantiene la conversación viva cuando el proveedor gratuito falla.</p></div><div class="rich reveal"><div class="card-grid">
+<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">03 — La idea</div><h2>Un chat que no se cae cuando un modelo se cae</h2><p class="section-sub">La gracia no es el chat: es la capa que elige, rota y mantiene la conversación viva cuando el proveedor gratuito falla.</p></div><div class="rich reveal"><div class="card-grid">
 <div class="card"><h3>El problema</h3><div><div></div><p>Los modelos gratuitos de OpenRouter son excelentes hasta que desaparecen: 429, timeouts, modelos que dejan de estar disponibles. Un chat que depende de uno solo se rompe en la primera demo.</p></div></div>
 <div class="card"><h3>La solución</h3><div><div></div><p>Un pool con prioridad china, failover automático y streaming SSE. Si el modelo activo falla, la pasarela elige otro y continúa la respuesta sin que el usuario recargue la página.</p></div></div>
 </div></div></div></section>
-<section class="section"><div class="wrap"><div class="section-head reveal"><div class="kicker">02 — El recorrido</div><h2>Cómo funciona, paso a paso</h2><p class="section-sub">El usuario escribe; la pasarela decide quién responde.</p></div><div class="rich reveal"><div class="timeline">
+<section class="section"><div class="wrap"><div class="section-head reveal"><div class="kicker">04 — El recorrido</div><h2>Cómo funciona, paso a paso</h2><p class="section-sub">El usuario escribe; la pasarela decide quién responde.</p></div><div class="rich reveal"><div class="timeline">
 <div class="step"><div class="step-n">01</div><h4>El navegador envía</h4><div><p>La UI manda el historial al backend por HTTP y abre un stream SSE para la respuesta.</p></div></div>
 <div class="step"><div class="step-n">02</div><h4>El pool elige</h4><div><p>El backend consulta el catálogo de modelos gratuitos y prioriza los modelos chinos disponibles.</p></div></div>
 <div class="step"><div class="step-n">03</div><h4>La respuesta fluye</h4><div><p>Los tokens llegan por SSE y se pintan en la burbuja sin esperar al final.</p></div></div>
 <div class="step"><div class="step-n">04</div><h4>Si falla, rota</h4><div><p>Un error 429 o un timeout cambia el modelo y reintenta. El usuario ve una respuesta, no un stack trace.</p></div></div>
 </div></div></div></section>
-<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">03 — Bajo el capó</div><h2>La pasarela es el producto</h2><p class="section-sub">El frontend es simple a propósito; la inteligencia de selección vive en el backend.</p></div><div class="rich reveal"><figure><img src="assets/rich/architecture.svg" alt="Arquitectura de Mega Free Chat con SSE y pool de modelos" loading="lazy"><figcaption>El navegador habla con la pasarela; la pasarela habla con OpenRouter.</figcaption></figure>
+<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">05 — Bajo el capó</div><h2>La pasarela es el producto</h2><p class="section-sub">El frontend es simple a propósito; la inteligencia de selección vive en el backend.</p></div><div class="rich reveal"><figure><img src="assets/rich/architecture.svg" alt="Arquitectura de Mega Free Chat con SSE y pool de modelos" loading="lazy"><figcaption>El navegador habla con la pasarela; la pasarela habla con OpenRouter.</figcaption></figure>
 <div class="card-grid">
 <div class="card"><h3>Streaming SSE</h3><div><p>La respuesta se muestra mientras se genera, con eventos claros y reconexión.</p></div></div>
 <div class="card"><h3>Prioridad china</h3><div><p>El pool ordena modelos chinos gratuitos primero, pero conserva alternativas globales.</p></div></div>
 <div class="card"><h3>Failover visible</h3><div><p>Los errores se registran y se convierten en una nueva elección de modelo, no en una pantalla rota.</p></div></div>
 </div></div></div></section>
-<section class="section"><div class="wrap"><div class="section-head reveal"><div class="kicker">04 — Lo que lo hace distinto</div><h2>Decisiones de ingeniería</h2><p class="section-sub">Menos dependencia de un proveedor, más conversación.</p></div><div class="rich reveal"><div class="features">
+<section class="section"><div class="wrap"><div class="section-head reveal"><div class="kicker">06 — Lo que lo hace distinto</div><h2>Decisiones de ingeniería</h2><p class="section-sub">Menos dependencia de un proveedor, más conversación.</p></div><div class="rich reveal"><div class="features">
 <div class="feature"><h3>Rotación de modelos</h3><div><p>Si un modelo falla, el siguiente toma la conversación.</p></div></div>
 <div class="feature"><h3>Streaming SSE</h3><div><p>Tokens en vivo sin polling ni WebSocket.</p></div></div>
 <div class="feature"><h3>Clave en el servidor</h3><div><p>La API key vive en .env; el navegador nunca la ve.</p></div></div>
@@ -228,22 +253,21 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.04em;margin:
 <div class="feature"><h3>Cooldown</h3><div><p>Los modelos saturados se apartan temporalmente.</p></div></div>
 <div class="feature"><h3>Modelos $0</h3><div><p>El pool se alimenta del catálogo gratuito de OpenRouter.</p></div></div>
 </div></div></div></section>
-<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">05 — Diagramas</div><h2>El sistema, en dibujos</h2><p class="section-sub">Los diagramas se mantienen en el repositorio y se actualizan con el código.</p></div><div class="rich reveal"><figure><img src="assets/rich/chat-flow.svg" alt="Mega Free Chat — chat flow" loading="lazy"><figcaption>Chat Flow</figcaption></figure>
+<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">07 — Diagramas</div><h2>El sistema, en dibujos</h2><p class="section-sub">Los diagramas se mantienen en el repositorio y se actualizan con el código.</p></div><div class="rich reveal"><figure><img src="assets/rich/chat-flow.svg" alt="Mega Free Chat — chat flow" loading="lazy"><figcaption>Chat Flow</figcaption></figure>
 <figure><img src="assets/rich/failover.svg" alt="Mega Free Chat — failover" loading="lazy"><figcaption>Failover</figcaption></figure></div></div></section>
-<section class="section"><div class="wrap"><div class="section-head reveal"><div class="kicker">06 — Stack y arranque</div><h2>Con qué está construido</h2><p class="section-sub">FastAPI para la pasarela, SSE para el streaming y JavaScript vanilla para la UI. Sin framework de frontend que mantener.</p></div><div class="rich reveal"><p>Python FastAPI SSE OpenRouter JavaScript HTML/CSS La API key se configura por entorno o se guarda en el navegador según el modo de uso.</p>
+<section class="section"><div class="wrap"><div class="section-head reveal"><div class="kicker">08 — Stack y arranque</div><h2>Con qué está construido</h2><p class="section-sub">FastAPI para la pasarela, SSE para el streaming y JavaScript vanilla para la UI. Sin framework de frontend que mantener.</p></div><div class="rich reveal"><p>Python FastAPI SSE OpenRouter JavaScript HTML/CSS La API key se configura por entorno o se guarda en el navegador según el modo de uso.</p>
 <p>mega-free-chat · arranque</p>
 <pre><span>$</span> python3 -m venv .venv
 <span>$</span> source .venv/bin/activate
 <span>$</span> pip install -r requirements.txt
 <span>$</span> export OPENROUTER_API_KEY=[REDACTED]
 <span>$</span> uvicorn app:app --port 8000</pre></div></div></section>
-<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">07 — Documentación</div><h2>Todo está escrito</h2><p class="section-sub">Cada decisión, cada límite y cada comando están documentados en el repositorio. Sin folletos: lo que funciona se muestra, lo que no, también.</p></div><div class="rich reveal"><div class="card-grid">
+<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">09 — Documentación</div><h2>Todo está escrito</h2><p class="section-sub">Cada decisión, cada límite y cada comando están documentados en el repositorio. Sin folletos: lo que funciona se muestra, lo que no, también.</p></div><div class="rich reveal"><div class="card-grid">
 <a class="card" href=""><h3>La guía completa</h3><p>Arquitectura, pool, SSE, configuración y límites.</p></a>
 <a class="card" href=""><h3>Manual de operación</h3><p>Endpoints, variables, uso y diagnóstico.</p></a>
 <a class="card" href=""><h3>Guía de código</h3><p>Backend, frontend, streaming y extensión.</p></a>
 <a class="card" href=""><h3>Referencias</h3><p>OpenRouter, FastAPI y SSE.</p></a>
-</div></div></div></section>
-<section class="cta"><div class="wrap"><div class="cta-box reveal">
+</div></div></div></section><section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">Lo que no funcionó</div><h2>Los tropiezos, documentados</h2><p class="section-sub">Las primeras versiones existen para que estos errores no se repitan: cada una dejó una decisión de diseño verificable.</p></div><div class="fail-grid reveal"><div class="fail"><div class="v">mega-free-chat</div><h3>Failover que no atrapa el primer error</h3><p>chat_stream es un generador: llamarlo no ejecuta la petición, así que el try/except del router envolvía la creación y no la iteración. Un 429 al abrir el stream se devolvía como error interno, sin cambiar de modelo. Se documentó como deuda y el arreglo consiste en primar el generador.</p></div><div class="fail"><div class="v">mega-free-chat</div><h3>Configuración ignorada según el arranque</h3><p>Los módulos leían os.getenv al importarse y load_dotenv() corría después, por lo que BACKOFF_SECONDS, POOL_REFRESH_SECONDS y OR_BASE_URL del .env se ignoraban con uvicorn server:app. run.sh exportaba las variables y ocultaba el problema. Quedó pendiente leer la configuración en runtime, porque el modo de arranque también define el comportamiento.</p></div><div class="fail"><div class="v">mega-free-chat</div><h3>Lanzador en segundo plano revertido</h3><p>Se agregó un lanzador de escritorio tipo interruptor para arrancar el servidor sin terminal. Dejaba procesos huérfanos, dos instancias peleando por el puerto 8000 y ninguna forma clara de saber cuál respondía. Se revirtió a run.sh en primer plano con exec y Ctrl+C.</p></div><div class="fail"><div class="v">mega-free-chat</div><h3>Clasificación china por subcadena</h3><p>La keyword ling, incluida por Ling/InclusionAI, matcheaba dentro de inkling y el panel mostraba modelos occidentales en el grupo chino. La lista pasó a expresiones regulares con límite de palabra. El cambio quedó documentado como lección sobre clasificar textos cortos.</p></div></div></div></section><section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">Ficha de evaluación</div><h2>Cómo se mide este proyecto</h2><p class="section-sub">Seis criterios con la misma escala en todo el catálogo, para comparar sin marketing.</p></div><div class="rating-head reveal"><div class="rating-avg">4.0<small>/5</small></div><div><strong>Madurez global</strong><p>Gateway honesto sobre una promoción temporal: descubre, prioriza y transmite, y avisa cuando no hay cupo. Su deuda es el failover y la ausencia de pruebas.</p></div></div><div class="rating reveal"><div class="rating-row"><div class="rating-name">Madurez</div><div class="rating-bar"><i style="width:60%"></i></div><div class="rating-score">3/5</div><div class="rating-note">Endpoints verificados manualmente con curl; failover incompleto y sin pruebas automatizadas ni CI.</div></div><div class="rating-row"><div class="rating-name">Reproducibilidad</div><div class="rating-bar"><i style="width:60%"></i></div><div class="rating-score">3/5</div><div class="rating-note">requirements.txt sin versiones fijas, .env.example y run.sh; el resultado depende del catálogo vigente.</div></div><div class="rating-row"><div class="rating-name">Documentación</div><div class="rating-bar"><i style="width:100%"></i></div><div class="rating-score">5/5</div><div class="rating-note">README de 40 KB, bitácora con estado de verificación y doce limitaciones enumeradas.</div></div><div class="rating-row"><div class="rating-name">Honestidad de límites</div><div class="rating-bar"><i style="width:100%"></i></div><div class="rating-score">5/5</div><div class="rating-note">Separa lo verificado de lo supuesto y admite que el failover no se ejercitó con un 429 real.</div></div><div class="rating-row"><div class="rating-name">Valor demostrativo</div><div class="rating-bar"><i style="width:80%"></i></div><div class="rating-score">4/5</div><div class="rating-note">Muestra descubrimiento dinámico, prioridad configurable y streaming SSE con un frontend sin dependencias.</div></div><div class="rating-row"><div class="rating-name">Facilidad de despliegue</div><div class="rating-bar"><i style="width:80%"></i></div><div class="rating-score">4/5</div><div class="rating-note">Entorno virtual, una clave en .env y run.sh en primer plano; sin Docker ni base de datos.</div></div></div></div></section><section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">Preguntas típicas</div><h2>Lo que suelen preguntar</h2></div><div class="faq reveal"><details><summary>¿Es realmente gratis?</summary><p>Usa modelos con costo cero de OpenRouter. Eso no garantiza disponibilidad ni cupo.</p></details><details><summary>¿Dónde está la API key?</summary><p>No se publica. Usá .env.example y tu propia clave.</p></details><details><summary>¿Qué es el failover?</summary><p>Si un modelo falla o no está disponible, se intenta el siguiente según la prioridad.</p></details><details><summary>¿Por qué prioriza proveedores chinos?</summary><p>Es una decisión del autor por latencia/disponibilidad; el orden es configurable.</p></details><details><summary>¿Guarda conversaciones?</summary><p>No hay base de datos en el gateway.</p></details></div></div></section><section class="cta"><div class="wrap"><div class="cta-box reveal">
   <div class="kicker">Siguiente paso</div><h2>¿Te animás?</h2>
   <p>Usá esta familia como base para mega free chat. Está documentada para que puedas entenderla, ejecutarla y continuarla sin adivinar.</p>
   <div class="hero-actions" style="justify-content:center"><a class="btn btn-primary" href="https://github.com/jmadasme/mega-free-chat" target="_blank" rel="noopener">Abrir el repositorio <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost" href="/software/">Ver más de Software</a></div>
