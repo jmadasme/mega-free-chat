@@ -191,12 +191,14 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.04em;margin:
 
 </style>
 <link rel="stylesheet" href="assets/community.css?v=1">
+<link href="rec/player.css?v=1" rel="stylesheet"/>
 </head>
 <body>
 <header class="nav"><div class="wrap nav-in">
   <a class="brand" href="/"><span class="brand-mark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/></svg></span><span>jmadasme<span style="color:var(--accent)">.</span>portfolio</span></a>
   <nav class="nav-links">
-    <a href="#proyecto">Proyecto</a><a href="#versiones">Versiones</a><a href="#stack">Stack</a><a href="#docs">Docs</a><a href="#comunidad">Comunidad</a>
+    <a href="#proyecto">Proyecto</a><a href="#versiones">Versiones</a><a href="#stack">Stack</a><a href="#video">Video</a>
+<a href="#docs">Docs</a><a href="#comunidad">Comunidad</a>
     <a class="btn btn-ghost" style="padding:9px 15px" href="/software/">← Software</a>
   </nav>
 </div></header>
@@ -221,7 +223,46 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.04em;margin:
 
 <section class="stats"><div class="wrap stats-grid"><div class="stat"><div class="stat-num">1</div><div class="stat-label">versión</div></div><div class="stat"><div class="stat-num">$0</div><div class="stat-label">costo</div></div><div class="stat"><div class="stat-num">SSE</div><div class="stat-label">streaming</div></div><div class="stat"><div class="stat-num">1</div><div class="stat-label">gateway</div></div></div></section>
 
-<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">El concepto</div><h2>Qué es y por qué existe</h2></div><div class="rich reveal"><p>Mega Free Chat es una puerta de enlace local para conversar con modelos de costo cero de OpenRouter. Un servidor FastAPI descubre el catálogo, filtra los modelos con precio cero, los ordena con prioridad a proveedores chinos y transmite la respuesta por Server-Sent Events. La interfaz es un HTML con JavaScript embebido, sin frameworks ni compilación.</p><p>Apunta a quien quiere probar modelos gratuitos sin repartir cinco claves ni mantener una lista fija que caduca en días. El aporte es el criterio: el pool se reconstruye solo, el failover intenta el siguiente candidato y, cuando no hay cupo, la aplicación lo dice en lugar de fingir. Su límite es igual de claro: el failover no cubre errores del primer intento y el servicio no tiene autenticación.</p></div></div></section><section class="section" id="versiones"><div class="wrap">
+<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">El concepto</div><h2>Qué es y por qué existe</h2></div><div class="rich reveal"><p>Mega Free Chat es una puerta de enlace local para conversar con modelos de costo cero de OpenRouter. Un servidor FastAPI descubre el catálogo, filtra los modelos con precio cero, los ordena con prioridad a proveedores chinos y transmite la respuesta por Server-Sent Events. La interfaz es un HTML con JavaScript embebido, sin frameworks ni compilación.</p><p>Apunta a quien quiere probar modelos gratuitos sin repartir cinco claves ni mantener una lista fija que caduca en días. El aporte es el criterio: el pool se reconstruye solo, el failover intenta el siguiente candidato y, cuando no hay cupo, la aplicación lo dice en lugar de fingir. Su límite es igual de claro: el failover no cubre errores del primer intento y el servicio no tiene autenticación.</p></div></div></section>
+<section class="section tight rec-section" id="video" style="--accent:#2E7DFF;--accent2:#14F195">
+<div class="wrap">
+<div class="rec-kicker">REC · VIDEO · 3:09</div>
+<h2 class="rec-h2">Mega Free Chat: failover entre modelos gratis</h2>
+<p class="rec-lead">Cómo una pasarela elige modelos gratuitos de OpenRouter, los pone en cuarentena cuando fallan y transmite la respuesta por Server-Sent Events.</p>
+<div class="rec-banner">
+<span class="rec-banner-icon">📋</span>
+<strong>Puedes copiar y pegar los comandos del video desde el video !!!</strong>
+<span>Pausá, seleccioná el texto de la terminal y copiá.</span>
+</div>
+<div class="rec-shell">
+<div class="rec-bar"><i></i><i></i><i></i><span class="rec-title">Mega Free Chat: failover entre modelos gratis · asciinema</span><span class="rec-rec"><b></b>REC</span></div>
+<div class="rec-screen-wrap">
+<div class="rec-screen" id="rec-screen"></div>
+<div class="rec-poster" id="rec-poster">
+<div class="rec-kicker">ASCIINEMA · 3:09</div>
+<h3>Mega Free Chat: failover entre modelos gratis</h3>
+<p>Cómo una pasarela elige modelos gratuitos de OpenRouter, los pone en cuarentena cuando fallan y transmite la respuesta por Server-Sent Events.</p>
+<div class="rec-poster-meta">mega-free-chat · código real</div>
+<button class="rec-btn rec-primary" id="rec-start" type="button">▶ Reproducir</button>
+</div>
+</div>
+<div class="rec-controls">
+<button class="rec-btn rec-primary" id="rec-play" type="button">▶ Reproducir</button>
+<button class="rec-btn" id="rec-restart" type="button">↺ Reiniciar</button>
+<input class="rec-progress" id="rec-range" type="range" min="0" max="1000" value="0" aria-label="Progreso"/>
+<span class="rec-time" id="rec-time">0:00 / 3:09</span>
+<select class="rec-speed" id="rec-speed" aria-label="Velocidad"><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+<button class="rec-btn" id="rec-full" type="button" title="Pantalla completa">⛶</button>
+<button class="rec-btn" id="rec-copy" type="button">⧉ Copiar comandos</button>
+<a class="rec-download" href="rec/mega-free-chat.cast" download>descargar .cast</a>
+</div>
+</div>
+<p class="rec-note">Los fragmentos son del código real del repositorio. El catálogo gratuito de OpenRouter cambia sin aviso y el failover no cubre el primer 429 dentro del generador; el video muestra el mecanismo, no una garantía de disponibilidad.</p>
+<div class="rec-chapters"><span class="rec-chip"><b>0:06</b> EL PROBLEMA</span><span class="rec-chip"><b>0:21</b> ARQUITECTURA</span><span class="rec-chip"><b>0:34</b> EL POOL</span><span class="rec-chip"><b>0:51</b> FILTROS</span><span class="rec-chip"><b>1:07</b> COOLDOWN</span><span class="rec-chip"><b>1:23</b> REFRESCO</span><span class="rec-chip"><b>1:36</b> ORDEN</span><span class="rec-chip"><b>1:53</b> FAILOVER</span><span class="rec-chip"><b>2:09</b> SSE</span><span class="rec-chip"><b>2:26</b> CLIENTE</span><span class="rec-chip"><b>2:43</b> ARRANQUE</span></div>
+</div>
+</section>
+
+<section class="section" id="versiones"><div class="wrap">
   <div class="section-head reveal"><div class="kicker">02 — Versiones</div><h2>La historia, completa.</h2><p class="section-sub">Cada carpeta conserva una etapa del proyecto. No se borraron las anteriores: se pusieron en contexto.</p></div>
   <div class="versions"><article class="version reveal">
   <div class="version-top"><h3>mega-free-chat</h3><span class="count">26 archivos</span></div>
@@ -280,5 +321,7 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.04em;margin:
 <script>window.PORTFOLIO_COMMUNITY={account:"jmadasme",repo:"mega-free-chat",coinNamespace:"jmadasme-mega-free-chat-coins-v1",faqs:[{"q": "¿Es realmente gratis?", "a": "Usa modelos con costo cero de OpenRouter. Eso no garantiza disponibilidad ni cupo."}, {"q": "¿Dónde está la API key?", "a": "No se publica. Usá .env.example y tu propia clave."}, {"q": "¿Qué es el failover?", "a": "Si un modelo falla o no está disponible, se intenta el siguiente según la prioridad."}, {"q": "¿Por qué prioriza proveedores chinos?", "a": "Es una decisión del autor por latencia/disponibilidad; el orden es configurable."}, {"q": "¿Guarda conversaciones?", "a": "No hay base de datos en el gateway."}]};</script>
 <script src="assets/community.js?v=2" defer></script>
 
+<script defer src="rec/mega-free-chat.cast.js?v=1"></script>
+<script defer src="rec/player.js?v=1"></script>
 </body>
 </html>
